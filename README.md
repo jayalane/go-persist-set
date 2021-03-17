@@ -27,7 +27,7 @@ Currently it doesn't seem to be a long poll in the re-copying process.
 
 I'm using it.  
 
-*What is it? *
+*What is it?*
 
 Call "InSet" on a string and get a bool. 
 
@@ -47,4 +47,4 @@ The current API can best be seen in the _test files probably.
 
 *Requirements*
 
-BoltDB.  
+None.    
