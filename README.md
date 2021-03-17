@@ -16,10 +16,12 @@ make note of a bucket/object combo having been done and then once a
 minute it flushes the state out to disk.  Out of an hour if I dup 1
 minute of work, that's fine.
 
-It uses BoltDB. Initially I had BoltDB run synchronously with each copy
-but the process went from using all cores to just 1 core, mostly due to lock
-waiting for the DB transaction I think.  
-
+I just gathers a bunch of key names and writes them to a file as lines in a 
+dedicated go routine.  It was using BoltDB. Initially I had BoltDB run 
+synchronously with each copy but the process went from using all 
+cores to just 1 core, mostly due to lock waiting for the DB transaction 
+I think.  Even just writing out the data once per minute was a bit slow. 
+Currently it doesn't seem to be a long poll in the re-copying process.
 
 *Is it good to use?*
 
@@ -29,8 +31,8 @@ I'm using it.
 
 Call "InSet" on a string and get a bool. 
 
-Call "Set" with a string and within a minute that answer will be
-persisted to a DB file.
+Call "Set" with a string and eventually that answer will be
+persisted to a flat file.  
 
 *Who owns this code?*
 
