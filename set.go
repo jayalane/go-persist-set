@@ -58,12 +58,13 @@ func New(dbName string) (d *SetDb) {
 			log.Println(err)
 		}
 		defer f.Close()
+		ff := bufio.NewWriter(f)
 		for {
 			select {
 			case <-d.done:
 				return
 			case s := <-d.setChan:
-				if _, err := f.WriteString(s + "\n"); err != nil { // todo length prefix
+				if _, err := ff.WriteString(s + "\n"); err != nil { // todo length prefix
 					log.Println(err)
 				}
 				d.setLock.Lock()
