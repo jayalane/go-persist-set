@@ -53,10 +53,12 @@ func TestSet(t *testing.T) {
 		wg.Add(1)
 		go func() {
 			if d.InSet(makeName()) {
-				t.Fatal("Random new string was in set, unlikely")
+				t.Log("Random new string was in set, unlikely")
+				t.Fail()
 			}
 			if !d.InSet(saveName) {
-				t.Fatal("failed to retrieve set value")
+				t.Log("failed to retrieve set value")
+			t.Fail()
 			}
 			wg.Done()
 		}()

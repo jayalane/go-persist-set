@@ -1,6 +1,13 @@
 // -*- tab-width: 2 -*-
 
-// Package counters enables 1 line creation of stats to track your program flow; you get summaries every minute
+// Package persistSet is a non-transactional but low-impact way to
+// persist a set of things to the disk.  It is intended for things
+// like "my job checking 400 million objects has to be stopped and
+// restarted but I want to pick up roughly where I left off" The code
+// should idempotent but you want to quickly jump back to where you
+// where, roughly.  So you queue up persists into a channel and
+// soonish they are on disk, append only file.  No compression or
+// anything
 package persistSet
 
 import (
@@ -17,7 +24,6 @@ type SetDb struct {
 	setLock sync.RWMutex
 	setDb   map[string]int
 	name    string
-	started bool
 	done    chan bool
 	setChan chan string
 }
