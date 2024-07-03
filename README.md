@@ -48,3 +48,12 @@ The current API can best be seen in the _test files probably.
 *Requirements*
 
 None.    
+
+*Breaking change*
+
+This commit containing this line changes the structure exposed by this
+library from "SetDb" to "DB" and changes the module name from persistSet to 
+persistset.  As far as I know no one but myself is using this; I did 
+release the breaking change as v1.0.0 and the previous version as v0.1.0
+
+
